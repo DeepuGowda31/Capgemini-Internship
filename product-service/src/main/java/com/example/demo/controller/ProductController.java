@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +23,31 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
-
-    @PostMapping
+    
+    // Adding Product
+    @PostMapping("/save")
     public ResponseEntity<Product> save(@RequestBody Product p) {
         return new ResponseEntity<>(service.saveProduct(p), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public List<Product> getAll() {
-        return service.getAll();
+    @GetMapping("/viewAll")
+    public ResponseEntity<List<Product>> getAll() {
+        return ResponseEntity.ok(service.getAll());
     }
 
-    @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id) {
-        return service.getById(id);
+    @GetMapping("/view/{id}")
+    public ResponseEntity<Product> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getProductById(id));
     }
 
-    @PutMapping("/{id}")
-    public Product update(@PathVariable Long id, @RequestBody Product p) {
-        return service.updateProduct(id, p);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product p) {
+        return ResponseEntity.ok(service.updateProduct(id, p));
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         service.deleteById(id);
+        return ResponseEntity.ok("Product deleted successfully");
     }
 }

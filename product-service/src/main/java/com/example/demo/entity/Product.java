@@ -1,65 +1,84 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Entity 
+@Entity
 public class Product {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	private String name;
-	private String description;
-	private double price;
-	private int stock;
-	private String category;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(nullable = false)
+    private String name;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String description;
+    private double price;
+    private int stock;
+    private String category;
 
-	public String getName() {
-		return name;
-	}
+    // Constructors
+    public Product() {}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Product(Long id, String name, String description, double price, int stock, String category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.category = category;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getStock() {
-		return stock;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

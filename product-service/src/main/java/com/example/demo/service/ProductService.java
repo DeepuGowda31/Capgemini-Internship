@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +22,24 @@ public class ProductService {
         return repo.findAll();
     }
 
-    public Product getById(Long id) {
-        return repo.findById(id).orElse(null);
+    public Product getProductById(Long id) {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
     }
 
     public void deleteById(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Product not found with id: " + id);
+        }
         repo.deleteById(id);
     }
 
     public Product updateProduct(Long id, Product updated) {
-        Product p = repo.findById(id).orElse(null);
-        if (p != null) {
-            p.setName(updated.getName());
-            p.setDescription(updated.getDescription());
-            p.setPrice(updated.getPrice());
-            p.setStock(updated.getStock());
-            p.setCategory(updated.getCategory());
-            return repo.save(p);
-        }
-        return null;
+        Product p = getProductById(id);
+        p.setName(updated.getName());
+        p.setDescription(updated.getDescription());
+        p.setPrice(updated.getPrice());
+        p.setStock(updated.getStock());
+        p.setCategory(updated.getCategory());
+        return repo.save(p);
     }
 }
